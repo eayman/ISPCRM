@@ -1,0 +1,9 @@
+<h2>Agent Create Form:</h2>
+
+<form method="post">
+    {% csrf_token %}
+    {{form.as_p}}
+    <button>Create</button>
+</form>
+
+

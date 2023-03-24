@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+Are you sure you want to delete {{agent.username}}?
+
+<form method="post">
+    {% csrf_token %}
+    {{form.as_p}}
+    <button>Delete</button>
+</form>
+
+
+{% endblock content %}
