@@ -31,6 +31,19 @@ class CustomUser(AbstractUser):
         else:
             return super().save(*args, **kwargs)
     
+class AdminManager(BaseUserManager):
+    def get_queryset(self, *args, **kwargs):
+        results = super().get_queryset(*args, **kwargs)
+        return results.filter(role=CustomUser.Role.ADMIN)
+
+class Admin(CustomUser):
+    base_role = CustomUser.Role.ADMIN
+    admins = AdminManager()
+    class Meta:
+        proxy = True
+    def welcome(self):
+        return "Only for admins"
+
 
 class AgentManager(BaseUserManager):
     def get_queryset(self, *args, **kwargs):

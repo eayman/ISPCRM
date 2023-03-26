@@ -8,7 +8,7 @@ class CustomUserCreationForm(UserCreationForm):
 
     class Meta(UserCreationForm):
         model = CustomUser
-        fields = ("first_name", "last_name","username", "email","NID","phone_number","password1","password2")
+        fields = ("username","password1","password2")
 
 class CustomUserChangeForm(UserChangeForm):
     password = None
@@ -17,31 +17,41 @@ class CustomUserChangeForm(UserChangeForm):
         fields = ("first_name", "last_name","username", "email","NID","phone_number")
 
 
+class AdminCreationForm(CustomUserCreationForm):
 
-class AgentCreationForm(UserCreationForm):
+    class Meta(CustomUserCreationForm):
+        model = Admin
+        fields = ("username","password1","password2")
+    
 
-    class Meta(UserCreationForm):
+class AdminChangeForm(CustomUserChangeForm):
+    
+    class Meta(CustomUserChangeForm):
+        model = Admin
+        fields = ("first_name", "last_name","username", "email","NID","phone_number")
+
+class AgentCreationForm(CustomUserCreationForm):
+
+    class Meta(CustomUserCreationForm):
         model = Agent
-        #fields = ("first_name", "last_name","username", "email","NID","phone_number","password1","password2")
         fields = ("username","password1","password2")
 
-class AgentChangeForm(UserChangeForm):
-    password = None
-    class Meta(UserChangeForm):
+class AgentChangeForm(CustomUserChangeForm):
+    
+    class Meta(CustomUserChangeForm):
         model = Agent
-        fields = ("first_name", "last_name","username", "email")
+        fields = ("first_name", "last_name","username", "email","NID","phone_number")
+       
 
 
 
-class ClientCreationForm(UserCreationForm):
+class ClientCreationForm(CustomUserCreationForm):
 
-    class Meta(UserCreationForm):
+    class Meta(CustomUserCreationForm):
         model = Client
-        #fields = ("first_name", "last_name","username", "email","NID","phone_number","password1","password2")
         fields = ("username","password1","password2")
 
-class ClientChangeForm(UserChangeForm):
-    password = None
-    class Meta(UserChangeForm):
+class ClientChangeForm(CustomUserChangeForm):
+    class Meta(CustomUserChangeForm):
         model = Client
-        fields = ("first_name", "last_name","username", "email")
+        fields = ("first_name", "last_name","username", "email","NID","phone_number")
