@@ -6,6 +6,10 @@ from .models import *
 from .forms import *
 
 ############################################################
+class DashboardView():
+    
+
+############################################################
 
 class AgentListView(ListView):
     template_name = "agents/agent_list.html"
