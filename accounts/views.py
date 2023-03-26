@@ -5,53 +5,33 @@ from django.views.generic import CreateView, DetailView, ListView, UpdateView, D
 from .models import *
 from .forms import *
 
-class AgentListView(ListView):
+
+class UserListView(ListView):
     template_name = "agents/agent_list.html"
-    queryset = Agent.agents.all()
-    context_object_name = "agents"
+    queryset = CustomUser.objects.all()
+    context_object_name = "users"
 
-class AgentProfileView(DetailView):
+class UserProfileView(DetailView):
     template_name = "agents/agent_profile.html"
-    queryset = Agent.objects.all()
-    context_object_name = "agent"
+    queryset = CustomUser.objects.all()
+    context_object_name = "user"
 
-class AgentCreateView(CreateView):
+class UserCreateView(CreateView):
     template_name = "agents/agent_create.html"
-    form_class = AgentCreationForm
-    def get_success_url(self):
-        return resolve_url("agents-list")
+    form_class = CustomUserCreationForm
+    success_url = reverse_lazy('agents-list')
 
-class AgentUpdateView(UpdateView):
-    print("start")
+class UserUpdateView(UpdateView):
     template_name = "agents/agent_update.html"
-    queryset = AgentProfile.agents.all()
-    #form_class = CustomUserChangeForm
-    form_class = AgentUpdateForm
-    def get_success_url(self):
-        return resolve_url("agents-list")
-    
-    print("end")
+    queryset = CustomUser.objects.all()
+    form_class = CustomUserChangeForm
+    print("ok")
+    success_url = reverse_lazy('agents-list')
+    print("ok")
 
-def agent_update(request,pk):
-    agent = get_object_or_404(AgentProfile,id=pk)
-    #user = agent.user
-    form = AgentUpdateForm(instance=agent)
-    #form = UserChangeForm(isinstance=user)
-    if request.method == "POST":
-        form = AgentUpdateForm(request.POST,instance=agent)
-        #form = UserChangeForm(request.POST, isinstance=user)
-        if form.is_valid():
-            form.save()
-            return HttpResponse("ok")
-    context = {
-        'form':form  
-
-    }
-    return render(request,"agents/agent_update.html",context)
-
-class AgentDeleteView(DeleteView):
+class UserDeleteView(DeleteView):
     template_name = "agents/agent_delete.html"
-    queryset = Agent.agents.all()
-    context_object_name = "agent"
-    def get_success_url(self):
-        return resolve_url("agents-list")
+    queryset = CustomUser.objects.all()
+    context_object_name = "user"
+    success_url = reverse_lazy('agents-list')
+    

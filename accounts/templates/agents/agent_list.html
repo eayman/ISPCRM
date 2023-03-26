@@ -7,10 +7,10 @@
 <h2>Agents List:</h2>
 
 <ul>
-    {% for agent in agents %}
-    <li><span>{{agent}}</span></li>
-    <a href="{% url 'agent-update' agent.id %}">Update</a>
-    <a href="{% url 'agent-delete' agent.id %}">Delete</a>
+    {% for user in users %}
+    <li><span>{{user}}</span></li>
+    <a href="{% url 'agent-update' user.id %}">Update</a>
+    <a href="{% url 'agent-delete' user.id %}">Delete</a>
     <hr>
     {% endfor %}
 </ul>

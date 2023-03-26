@@ -6,24 +6,12 @@ from .models import CustomUser
 
 class CustomUserCreationForm(UserCreationForm):
 
-    class Meta:
+    class Meta(UserCreationForm):
         model = CustomUser
-        fields = ("username", "email")
+        fields = ("first_name", "last_name","username", "email","NID","phone_number","password1","password2")
 
 class CustomUserChangeForm(UserChangeForm):
-
-    class Meta:
+    password = None
+    class Meta(UserChangeForm):
         model = CustomUser
-        fields = ("username", "email",)
-
-
-class AgentCreationForm(CustomUserCreationForm):
-    class Meta:
-        model = AgentProfile
-        fields = ("username", "email")
-
-class AgentUpdateForm(CustomUserChangeForm):
-    class Meta:
-        model = AgentProfile
-        fields = ("first_name", "last_name", "username", "email")
-        exclude = ("password",)
+        fields = ("first_name", "last_name","username", "email","NID","phone_number")
