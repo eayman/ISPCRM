@@ -23,10 +23,34 @@ class CustomUser(AbstractUser):
 
     def __str__(self):
         return self.username
-
-class Agent(models.Model):
-    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
+    
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            self.role = self.base_role
+            return super().save(*args, **kwargs)
+        else:
+            return super().save(*args, **kwargs)
     
 
-class Client(models.Model):
+class AgentManager(BaseUserManager):
+    def get_queryset(self, *args, **kwargs):
+        results = super().get_queryset(*args, **kwargs)
+        return results.filter(role=CustomUser.Role.AGENT)
+
+class Agent(CustomUser):
+    base_role = CustomUser.Role.AGENT
+    agents = AgentManager()
+    class Meta:
+        proxy = True
+    def welcome(self):
+        return "Only for agents"
+
+class AgentProfile(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
+
+
+@receiver(post_save, sender=Agent)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created and instance.role == "AGENT":
+        AgentProfile.objects.create(user=instance)
+

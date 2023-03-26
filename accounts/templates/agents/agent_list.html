@@ -5,14 +5,15 @@
 
 
 <h2>Agents List:</h2>
+<span><a href="{% url 'agent-create' %}">Create agent</a></span>
+<hr>
 
 <ul>
-    {% for user in users %}
-    <li><span>{{user}}</span></li>
-    <a href="{% url 'agent-update' user.id %}">Update</a>
-    <a href="{% url 'agent-delete' user.id %}">Delete</a>
+    {% for agent in agents %}
+    <li><a href="{% url 'agent-profile' agent.id %}"><span>@{{agent.username}}</span></a> | {{agent.get_full_name}} </li>
+    <a href="{% url 'agent-update' agent.id %}">Update</a>
+    <a href="{% url 'agent-delete' agent.id %}">Delete</a>
     <hr>
     {% endfor %}
 </ul>
-<span><a href="{% url 'agent-create' %}">Create agent</a></span>
 {% endblock %}

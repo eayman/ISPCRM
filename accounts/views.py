@@ -6,32 +6,30 @@ from .models import *
 from .forms import *
 
 
-class UserListView(ListView):
+class AgentListView(ListView):
     template_name = "agents/agent_list.html"
-    queryset = CustomUser.objects.all()
-    context_object_name = "users"
+    queryset = Agent.agents.all()
+    context_object_name = "agents"
 
-class UserProfileView(DetailView):
+class AgentProfileView(DetailView):
     template_name = "agents/agent_profile.html"
-    queryset = CustomUser.objects.all()
-    context_object_name = "user"
+    queryset = Agent.agents.all()
+    context_object_name = "agent"
 
-class UserCreateView(CreateView):
+class AgentCreateView(CreateView):
     template_name = "agents/agent_create.html"
-    form_class = CustomUserCreationForm
+    form_class = AgentCreationForm
     success_url = reverse_lazy('agents-list')
 
-class UserUpdateView(UpdateView):
+class AgentUpdateView(UpdateView):
     template_name = "agents/agent_update.html"
-    queryset = CustomUser.objects.all()
-    form_class = CustomUserChangeForm
-    print("ok")
+    queryset = Agent.agents.all()
+    form_class = AgentChangeForm
     success_url = reverse_lazy('agents-list')
-    print("ok")
 
-class UserDeleteView(DeleteView):
+class AgentDeleteView(DeleteView):
     template_name = "agents/agent_delete.html"
-    queryset = CustomUser.objects.all()
-    context_object_name = "user"
+    queryset = Agent.agents.all()
+    context_object_name = "agent"
     success_url = reverse_lazy('agents-list')
     
