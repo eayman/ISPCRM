@@ -1,0 +1,8 @@
+<h1>Profile</h1>
+<h2>Welcome {{client.first_name}}</h2>
+<span>Full Name:{{client.get_full_name}}</span>
+<br>
+<span>Email:{{client.email}}</span>
+<br>
+<a href="{% url 'client-update' client.id %}">Update</a>
+<a href="{% url 'client-delete' client.id %}">Delete</a>

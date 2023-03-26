@@ -30,3 +30,18 @@ class AgentChangeForm(UserChangeForm):
     class Meta(UserChangeForm):
         model = Agent
         fields = ("first_name", "last_name","username", "email")
+
+
+
+class ClientCreationForm(UserCreationForm):
+
+    class Meta(UserCreationForm):
+        model = Client
+        #fields = ("first_name", "last_name","username", "email","NID","phone_number","password1","password2")
+        fields = ("username","password1","password2")
+
+class ClientChangeForm(UserChangeForm):
+    password = None
+    class Meta(UserChangeForm):
+        model = Client
+        fields = ("first_name", "last_name","username", "email")

@@ -54,3 +54,27 @@ def create_user_profile(sender, instance, created, **kwargs):
     if created and instance.role == "AGENT":
         AgentProfile.objects.create(user=instance)
 
+
+
+class ClientManager(BaseUserManager):
+    def get_queryset(self, *args, **kwargs):
+        results = super().get_queryset(*args, **kwargs)
+        return results.filter(role=CustomUser.Role.CLIENT)
+
+class Client(CustomUser):
+    base_role = CustomUser.Role.CLIENT
+    clients = ClientManager()
+    class Meta:
+        proxy = True
+    def welcome(self):
+        return "Only for clients"
+
+class ClientProfile(models.Model):
+    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
+
+
+@receiver(post_save, sender=Client)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created and instance.role == "CLIENT":
+        ClientProfile.objects.create(user=instance)
+

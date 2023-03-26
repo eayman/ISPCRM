@@ -5,6 +5,7 @@ from django.views.generic import CreateView, DetailView, ListView, UpdateView, D
 from .models import *
 from .forms import *
 
+############################################################
 
 class AgentListView(ListView):
     template_name = "agents/agent_list.html"
@@ -32,4 +33,34 @@ class AgentDeleteView(DeleteView):
     queryset = Agent.agents.all()
     context_object_name = "agent"
     success_url = reverse_lazy('agents-list')
+
+############################################################
+
+class ClientListView(ListView):
+    template_name = "clients/client_list.html"
+    queryset = Client.clients.all()
+    context_object_name = "clients"
+
+class ClientProfileView(DetailView):
+    template_name = "clients/client_profile.html"
+    queryset = Client.clients.all()
+    context_object_name = "client"
+
+class ClientCreateView(CreateView):
+    template_name = "clients/client_create.html"
+    form_class = ClientCreationForm
+    success_url = reverse_lazy('clients-list')
+
+class ClientUpdateView(UpdateView):
+    template_name = "clients/client_update.html"
+    queryset = Client.clients.all()
+    form_class = ClientChangeForm
+    success_url = reverse_lazy('clients-list')
+
+class ClientDeleteView(DeleteView):
+    template_name = "clients/client_delete.html"
+    queryset = Client.clients.all()
+    context_object_name = "client"
+    success_url = reverse_lazy('clients-list')
     
+############################################################

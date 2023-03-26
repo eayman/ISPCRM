@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+   
+
+
+<h2>Clients List:</h2>
+<span><a href="{% url 'client-create' %}">Create client</a></span>
+<hr>
+
+<ul>
+    {% for client in clients %}
+    <li><a href="{% url 'client-profile' client.id %}"><span>@{{client.username}}</span></a> | {{client.get_full_name}} </li>
+    <a href="{% url 'client-update' client.id %}">Update</a>
+    <a href="{% url 'client-delete' client.id %}">Delete</a>
+    <hr>
+    {% endfor %}
+</ul>
+{% endblock %}
