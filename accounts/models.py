@@ -27,9 +27,8 @@ class CustomUser(AbstractUser):
     def save(self, *args, **kwargs):
         if not self.pk:
             self.role = self.base_role
-            return super().save(*args, **kwargs)
-        else:
-            return super().save(*args, **kwargs)
+        return super().save(*args, **kwargs)
+       
     
 class AdminManager(BaseUserManager):
     def get_queryset(self, *args, **kwargs):

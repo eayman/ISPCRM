@@ -10,7 +10,7 @@ urlpatterns = [
     path("agents/<int:pk>/update",AgentUpdateView.as_view(),name="agent-update"),
     path("agents/<int:pk>/delete",AgentDeleteView.as_view(),name="agent-delete"),
     ############# Client URLs #############
-    path("clients/",ClientListView.as_view(),name="clients-list"),
+    path("clients/",ClientListView.as_view(),name="client-list"),
     path("clients/create",ClientCreateView.as_view(),name="client-create"),
     path("clients/<int:pk>/profile",ClientProfileView.as_view(),name="client-profile"),
     path("clients/<int:pk>/update",ClientUpdateView.as_view(),name="client-update"),
