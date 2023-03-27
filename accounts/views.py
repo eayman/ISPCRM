@@ -2,6 +2,8 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render, resolve_url
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DetailView, ListView, UpdateView, DeleteView
+from django.contrib.auth.views import LoginView
+
 from .models import *
 from .forms import *
 
@@ -64,3 +66,7 @@ class ClientDeleteView(DeleteView):
     success_url = reverse_lazy('clients-list')
     
 ############################################################
+
+class CustomLoginView(LoginView):
+    template_name = 'registration/login.html'
+    form_class = LoginForm

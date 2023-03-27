@@ -1,12 +1,38 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 
-{% block title %}Log In{% endblock %}
 
 {% block content %}
-<h2>Log In</h2>
-<form method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Log In</button>
-</form>
-{% endblock %}
+
+<!-- component -->
+
+    <div class="flex justify-center h-[35rem] items-center">
+     <form method="post" class="w-full md:w-1/2 flex flex-col items-center " >
+        {% csrf_token %}
+         <!-- text login -->
+         <h1 class="text-center text-2xl font-bold text-gray-600 mb-6">LOGIN</h1>
+         {% for field in form %}
+         <div class="w-3/4 mb-6">
+            {{field}}      
+           </div>
+         {% endfor %}
+         <!-- remember input -->
+         <div class="w-3/4 flex flex-row justify-between">
+             <div class=" flex items-center gap-x-1">
+                 <input type="checkbox" name="remember" id="" class=" w-4 h-4  ">
+                 <label for="" class="text-sm text-slate-400">Remember me</label>
+             </div>
+             <div>
+                 <a href="#" class="text-sm text-slate-400 hover:text-blue-500">Forgot?</a>
+             </div>
+         </div>
+         <!-- button -->
+         <div class="w-3/4 mt-4">
+             <button type="submit" class="py-4 bg-blue-400 w-full rounded text-blue-50 font-bold hover:bg-blue-700"> LOGIN</button>
+         </div>
+     </form>
+    </div>
+
+
+
+
+{% endblock content %}

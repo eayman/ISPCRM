@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # new local apps
     'accounts',
+    'leads',
 
     
 ]

@@ -1,0 +1,219 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+    <div class="w-full mb-6 py-6 flex justify-between items-center border-b border-gray-200">
+        <div class="text-4xl text-gray-800">
+            <h1>Leads</h1>
+        </div>
+        <div class="text-1xl text-gray-500 hover:text-blue-500">
+            <a href="{% url 'lead-create' %}"><button class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
+              Create new lead
+            </button></a>
+            
+        </div>
+        
+    </div>
+<!-- component -->
+<div class="overflow-hidden rounded-lg shadow-md m-5">
+  <div class="flex items-center justify-between pb-4">
+    <label for="table-search" class="sr-only">Search</label>
+    <div class="relative">
+        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+            <svg class="w-5 h-5 text-gray-500 light:text-gray-400" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path></svg>
+        </div>
+        <input type="text" id="search-input" class="block p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-white light:focus:ring-blue-500 light:focus:border-blue-500" placeholder="Search for items">
+    </div>
+</div>
+
+    <table id="content-table" class="w-full border-collapse bg-white text-left text-sm text-gray-500">
+      <thead class="bg-gray-50">
+        <tr>
+          <th scope="col" class="px-6 py-4 font-medium text-gray-900">ID</th>
+          <th scope="col" class="px-6 py-4 font-medium text-gray-900">Name</th>
+          <th scope="col" class="px-6 py-4 font-medium text-gray-900">Address</th>
+          <th scope="col" class="px-6 py-4 font-medium text-gray-900">Email</th>
+          <th scope="col" class="px-6 py-4 font-medium text-gray-900">Send Email</th>
+          <th scope="col" class="px-6 py-4 font-medium text-gray-900">Phone</th>
+          <th scope="col" class="px-6 py-4 font-medium text-gray-900">Whatsapp</th>
+          <th scope="col" class="px-6 py-4 font-medium text-gray-900">Messenger</th>
+          <th scope="col" class="px-6 py-4 font-medium text-gray-900">Contacted</th>
+          <th scope="col" class="px-6 py-4 font-medium text-gray-900">Actions</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-gray-100 border-t border-gray-100">
+        {% for lead in leads %}
+        <tr class="hover:bg-gray-50">
+          <td class="lead-id px-6 py-4">{{lead.id}}</td>
+          <th class="px-6 py-4">
+            {{lead}}
+          </th>
+          <td class="px-6 py-4">{{lead.address}}</td>
+          </td>
+          <td class="px-6 py-4">{{lead.email}}</td>
+          <td class="px-6 py-4">
+            
+            <span class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600">
+              <a href="mailto:{{lead.email}}">Send Email</a>
+              </span>
+            
+          </td>
+          
+          <td class="px-6 py-4">
+            <div class="flex gap-2">
+              <span class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600">
+                {{lead.phone_number}}
+              </span>
+            </div>
+          </td>
+        
+          <td class="px-6 py-4">
+            <div class="flex gap-2">
+               <!-- Whatsapp -->
+                   <a href="https://wa.me/{{lead.phone_number}}" target="_blank">
+                    <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-7 w-7"
+                    fill="currentColor"
+                    style="color: #128c7e"
+                    viewBox="0 0 24 24">
+                    <path
+                      d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z" />
+                  </svg>
+                   </a>
+            </div>
+          </td>
+  
+          <td class="px-6 py-4">
+            <div class="flex gap-2">
+                <!-- Messenger -->
+                   <a href="https://m.me/grubngomealdelivery" target="_blank">
+                     
+                      <svg
+                      class="h-7 w-7"
+                      fill="currentColor"
+                      viewbox="0 0 24 24"
+                      style="color: #0084ff"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill-rule="evenodd"
+                      clip-rule="evenodd">
+                      <path
+                        d="M12 0c-6.627 0-12 4.975-12 11.111 0 3.497 1.745 6.616 4.472 8.652v4.237l4.086-2.242c1.09.301 2.246.464 3.442.464 6.627 0 12-4.974 12-11.111 0-6.136-5.373-11.111-12-11.111zm1.193 14.963l-3.056-3.259-5.963 3.259 6.559-6.963 3.13 3.259 5.889-3.259-6.559 6.963z" />
+                    </svg>
+                   </a>
+            </div>
+          </td>
+          <td class="px-6 py-4">
+            <!-- Contacted -->
+            <div class="flex gap-2">
+                <label class="relative inline-flex items-center mb-5 cursor-pointer">
+                {% if lead.is_contacted %}
+                  <input type="checkbox" value="" class="sr-only peer" checked onchange="changeContactedStatus(this)" >
+                  {% else %}
+                  <input type="checkbox" value="" class="sr-only peer" onchange="changeContactedStatus(this)" >
+                  {% endif %}
+                  <div class="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                </label>
+                
+               
+            </div>
+          </td>
+
+          
+          <td class="px-6 py-4">
+            <div class="flex justify-end gap-4">
+              <a x-data="{ tooltip: 'Delete' }" href="{% url 'lead-delete' lead.id %}">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="h-6 w-6"
+                  x-tooltip="tooltip"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
+                  />
+                </svg>
+              </a>
+              <a x-data="{ tooltip: 'Edite' }" href="{% url 'lead-update' lead.id %}">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="h-6 w-6"
+                  x-tooltip="tooltip"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125"
+                  />
+                </svg>
+              </a>
+            </div>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+   
+  </div>
+
+   <!--Pagination-->
+    
+<nav aria-label="Page navig ation example" class="grid place-items-center" >
+  {% if is_paginated %}
+  <ul class="inline-flex -space-x-px items-center	justify-between" >
+    {% if page_obj.has_previous %}
+    <li>
+      <a href="?page={{page_obj.previous_page_number}}" class="px-3 py-2 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700 light:bg-gray-800 light:border-gray-700 light:text-gray-400 light:hover:bg-gray-700 light:hover:text-white">Previous</a>
+    </li>
+    {% else %}
+    <li>
+      <a href="" class="page-item disabled px-3 py-2 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700 light:bg-gray-800 light:border-gray-700 light:text-gray-400 light:hover:bg-gray-700 light:hover:text-white">Previous</a>
+    </li>
+    {% endif %}
+
+    {% for i in paginator.page_range %} 
+    {% if page_obj.number == i %}
+    <li>
+      <a aria-current="page" class="px-3 py-2 text-blue-600 border border-gray-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 light:border-gray-700 light:bg-gray-700 light:text-white">{{ i }}</a>
+    </li>
+    {% else %}
+    <li>
+      <a href="?page={{ i }}"  class="px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 light:bg-gray-800 light:border-gray-700 light:text-gray-400 light:hover:bg-gray-700 light:hover:text-white">{{ i }}</a>
+    </li>
+    {% endif %} 
+    {% endfor %}
+    {% if page_obj.has_next %}
+    <li>
+      <a href="?page={{page_obj.next_page_number}}" class="px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 light:bg-gray-800 light:border-gray-700 light:text-gray-400 light:hover:bg-gray-700 light:hover:text-white">Next</a>
+    </li>
+    {% else %}
+    <li>
+      <a href="" class="page-item disabled px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 light:bg-gray-800 light:border-gray-700 light:text-gray-400 light:hover:bg-gray-700 light:hover:text-white">Next</a>
+    </li>
+    {% endif %}
+  </ul>
+  {% endif %}
+</nav>
+
+
+<script>
+  function changeContactedStatus(sender) {
+    
+   leadid = sender.parentElement.parentElement.parentElement.parentElement.getElementsByTagName("td").item(0).innerHTML
+   const xhttp = new XMLHttpRequest();
+ 
+  xhttp.open("GET", "change-contacted/" + leadid);
+  xhttp.send();
+  }
+</script>
+
+{% endblock content %}

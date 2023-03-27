@@ -1,41 +1,23 @@
+{% load static %}
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="min-h-screen">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Django Auth Tutorial{% endblock %}</title>
-    <style>
-        ul {
-          list-style-type: none;
-          margin: 0;
-          padding: 0;
-        }
-        
-        li {
-          display: inline;
-        }
-        </style>
+    <title>DJCRM</title>
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet" >
+    {% include "scripts.html" %}
+
 </head>
-<body>
-    <div>
-        <navbar>
-        <ul>
-          <li><a href="/">Home</a></li>
-          <li><a href="{% url 'agents-list' %}">Agents</a></li>
-          <li><a href="{% url 'clients-list' %}">Clients</a></li>
-        </ul>
-        </navbar>
-      </div>
-      {% if user.is_authenticated %}
-        Hi {{ user.username }}!
-        <p><a href="{% url 'logout' %}">Log Out</a></p>
-      {% else %}
-        <p>You are not logged in</p>
-        <a href="{% url 'login' %}">Log In</a> |
-      {% endif %}
-      <hr>
-    {% block content %}
-    {% endblock %}
+<body class="min-h-screen">
+        {% include 'navbar.html' %}
+        <div class="max-w-7xl mx-auto" id="content">
+
+
+        {% block content %}  {% endblock content %}
+        </div>
+    {% include "footer.html" %}
 </body>
 </html>
