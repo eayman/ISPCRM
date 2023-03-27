@@ -7,6 +7,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("accounts.urls")),
     path("", include("leads.urls")),
+    path("", include("subscriptions.urls")),
     ###############################################
     path("", TemplateView.as_view(template_name="home.html"), name="home"),
     path('contact-us',TemplateView.as_view(template_name="contact.html"),name='contact-us'),

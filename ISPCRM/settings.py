@@ -40,8 +40,7 @@ INSTALLED_APPS = [
     # new local apps
     'accounts',
     'leads',
-
-    
+    'subscriptions',
 ]
 
 MIDDLEWARE = [
