@@ -57,8 +57,6 @@ class SubListView(LoginRequiredMixin, ListView):
     queryset = Subscription.objects.all()
     context_object_name = "subscriptions"
     
-    
-
 class SubCreateView(LoginRequiredMixin, CreateView):
     template_name = "subscriptions/sub_create.html"
     form_class = SubModelForm
@@ -68,8 +66,7 @@ class SubUpdateView(LoginRequiredMixin, UpdateView):
     template_name = "subscriptions/sub_update.html"
     queryset = Subscription.objects.all()
     form_class =  SubModelForm
-    success_url = reverse_lazy('sub-list')
-    
+    success_url = reverse_lazy('sub-list')  
 
 class SubDeletetView(LoginRequiredMixin, DeleteView):
     template_name = "subscriptions/sub_delete.html"
