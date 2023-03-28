@@ -1,5 +1,6 @@
 from django.db import models
 from accounts.models import Client
+from datetime import date ,timedelta
 
 class Plan(models.Model):
     speeds = {
@@ -34,15 +35,17 @@ class Subscription(models.Model):
     plan = models.OneToOneField(Plan, on_delete=models.CASCADE)
     start_date = models.DateField(auto_now=True)
     
-    #def expiry(self):
-    #    return self.start_date + timedelta(months=3)
-    
-    #def remaining_period(self):
-    #    current_date = date.today()  
-    #    if current_date > self.expiry:
-    #        return (current_date - self.expiry).days 
-    #    else:
-    #        return 0
+    @property
+    def expiry(self):
+        days = self.plan.duration * 30
+        return self.start_date + timedelta(days = days)
+    @property
+    def remaining_period(self):
+        current_date = date.today()  
+        if current_date < self.expiry:
+            return (self.expiry - current_date).days 
+        else:
+            return 0
 
     def __str__(self):
         return str(self.id) + " " + str(self.client)

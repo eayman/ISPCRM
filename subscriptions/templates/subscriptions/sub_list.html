@@ -25,7 +25,7 @@
             <input type="text" id="search-input" class="block p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-white light:focus:ring-blue-500 light:focus:border-blue-500" placeholder="Search for items">
         </div>
     </div>
-    <table class="w-full text-sm text-left text-gray-500 light:text-gray-400">
+    <table id="content-table" class="w-full text-sm text-left text-gray-500 light:text-gray-400">
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 light:bg-gray-700 light:text-gray-400">
             <tr>
                 <th scope="col" class="p-4">
@@ -73,10 +73,10 @@
                     {{sub}}
                 </th>
                 <td class="px-6 py-4">
-                    {{sub.start_date}}
+                    {{sub.start_date|date:'d-m-Y'}}
                 </td>
                 <td class="px-6 py-4">
-                   test
+                    {{sub.expiry|date:'d-m-Y'}}
                 </td>
                 <td class="px-6 py-4">
                     {% if sub.plan.duration == 1  %}
@@ -86,7 +86,7 @@
                     {% endif %}
                 </td>
                 <td class="px-6 py-4">
-                    test
+                    {{sub.remaining_period}} days
                 </td>
                 <td class="px-6 py-4">
                     {{sub.plan.speed}} Mega

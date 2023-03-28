@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from django.shortcuts import render ,redirect, resolve_url ,HttpResponseRedirect
 from .models import *
 from .forms import *
@@ -50,6 +51,8 @@ class SubListView(LoginRequiredMixin, ListView):
     paginator_class = MyPaginator # We use our paginator class
     queryset = Subscription.objects.all()
     context_object_name = "subscriptions"
+    
+    
 
 class SubCreateView(LoginRequiredMixin, CreateView):
     template_name = "subscriptions/sub_create.html"
@@ -67,4 +70,3 @@ class SubDeletetView(LoginRequiredMixin, DeleteView):
     template_name = "subscriptions/sub_delete.html"
     queryset =Subscription.objects.all()
     success_url = reverse_lazy('sub-list')
-
