@@ -40,7 +40,12 @@ class PlanDeletetView(LoginRequiredMixin, DeleteView):
     queryset = Plan.objects.all()
     success_url = reverse_lazy('plan-list')
     
-    
+class OffersListView( ListView):
+    template_name ="plans/offers.html"
+    paginate_by = 4
+    paginator_class = MyPaginator # We use our paginator class
+    queryset = Plan.objects.all()
+    context_object_name = "plans"
 
 
 #################### Subscriptions Views ####################
