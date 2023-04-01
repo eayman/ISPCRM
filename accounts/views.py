@@ -5,6 +5,8 @@ from django.views.generic import CreateView, DetailView, ListView, UpdateView, D
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from utils import MyPaginator, PAGE_RESULTS
+from django.contrib.messages.views import SuccessMessageMixin
+
 
 from .models import *
 from .forms import *
@@ -25,6 +27,7 @@ class AgentCreateView(CreateView):
     template_name = "agents/agent_create.html"
     form_class = AgentCreationForm
     success_url = reverse_lazy('agents-list')
+
 
 class AgentUpdateView(UpdateView):
     template_name = "agents/agent_update.html"
@@ -53,10 +56,12 @@ class ClientProfileView(LoginRequiredMixin, DetailView):
     context_object_name = "client"
 
 
-class ClientCreateView(LoginRequiredMixin, CreateView):
+class ClientCreateView(SuccessMessageMixin,LoginRequiredMixin, CreateView):
     template_name = "clients/client_create.html"
     form_class = ClientCreationForm
     success_url = reverse_lazy('client-list')
+    success_message = "client was created successfully"
+
    
 
 class ClientUpdateView(LoginRequiredMixin, UpdateView):
