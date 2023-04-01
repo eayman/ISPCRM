@@ -7,7 +7,7 @@ from utils import MyPaginator, PAGE_RESULTS
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import *
 from django.shortcuts import get_object_or_404
-
+from django.contrib.messages.views import SuccessMessageMixin
 
 class LeadListView(LoginRequiredMixin,ListView):
     template_name = "leads/lead_list.html"
@@ -17,13 +17,14 @@ class LeadListView(LoginRequiredMixin,ListView):
     def get_queryset(self):
         queryset = Lead.objects.all()
         return queryset
-        
     context_object_name = "leads"
 
-class LeadCreateView(LoginRequiredMixin, CreateView):
+class LeadCreateView(SuccessMessageMixin,LoginRequiredMixin, CreateView):
     template_name = "leads/lead_create.html"
     form_class = LeadModelForm
     success_url = reverse_lazy('lead-list')
+    success_message = "lead was created successfully"
+
    
 class LeadUpdateView(LoginRequiredMixin, UpdateView):
     template_name = "leads/lead_update.html"
